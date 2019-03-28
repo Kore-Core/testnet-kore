@@ -15,3 +15,7 @@ sudo apt-get install -y qttools5-dev-tools libprotobuf-dev libqrencode-dev git c
 
 sudo apt-get update && sudo apt-get upgrade -y
 ```
+### To untar package
+```bash
+tar -zxvf  linux-kore-testnet.tar.gz
+```
