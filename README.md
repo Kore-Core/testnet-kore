@@ -37,11 +37,16 @@ sudo apt-get install -y qttools5-dev-tools libprotobuf-dev libqrencode-dev git c
 
 sudo apt-get update && sudo apt-get upgrade -y
 ```
+### Cloning KORE source
+
+```bash
+git clone https://github.com/kore-core/kore.git --branch v13
+```
 
 ### Building KORE dependencies
 
 ```bash
-cd depends
+cd kore/depends
 make
 ```
 
