@@ -65,8 +65,11 @@ make
 ```bash
 Here are some testnet onion address.
 you can use the console from kore-qt and give the command to add
-tv37hpwd5ntlsdmj.onion onetry
-j2zii4hsm44jbxv5.onion onetry
+addnode gyafu5wgnnfa3btx.onion onetry
+addnode dzux3xi23ndptlz7.onion onetry
+addnode ox2yoevdvlhweahq.onion onetry
+addnode vbbb5gz3uzhuup7z.onion onetry
+addnode mqeajzelltrgxkv6.onion onetry
 ```
 
 ### To untar package
