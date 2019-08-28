@@ -1,5 +1,27 @@
 # testnet-kore
 
+KORE Core integration/staging repository
+=====================================
+
+KORE is an open source crypto-currency focused on security and privacy with fast private transactions consisting of low transaction fees & environmental footprint.  It utilizes a custom Proof of Stake protocol for securing its network.
+
+
+### Coin Specs
+
+<table>
+<tr><td>Pre Fork Algo</td><td>Momentum</td></tr>
+<tr><td>Post Fork Algo</td><td>Yescrypt R32</td></tr>
+<tr><td>Block Time</td><td>60 Seconds</td></tr>
+<tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
+<tr><td>Max Coin Supply</td><td>12,000,000 KORE</td></tr>
+</table>
+
+
+
+### PoS Rewards Breakdown
+
+To be Added!!!
+
 ### Installation Steps
 
 Note1: that you can speed up the compilation using the option -j when using make, for example: make -j3
@@ -22,57 +44,70 @@ b) disabling swap
     sudo rm /swapfile
 ```
 
-### Installating dependencies
+### 1. Installating dependencies
 
 ```bash
 sudo apt-get update
+sudo apt-get install -y git curl jq
 sudo apt-get install -y software-properties-common
-sudo add-apt-repository -y ppa:bitcoin/bitcoin
-sudo apt-get update
-sudo apt-get install -y autotools-dev autoconf automake build-essential bsdmainutils 
-sudo apt-get install -y libssl-dev libevent-dev libboost-all-dev libcurl4-openssl-dev 
-sudo apt-get install -y libdb4.8-dev libdb4.8++-dev libzmq3-dev 
-sudo apt-get install -y libtool pkg-config protobuf-compiler python3 qttools5-dev
-sudo apt-get install -y qttools5-dev-tools libprotobuf-dev libqrencode-dev git curl jq
+sudo apt-get install -y autotools-dev autoconf automake build-essential
+sudo apt-get install -y qttools5-dev-tools qttools5-dev libprotobuf-dev libqrencode-dev
+sudo apt-get install -y libtool pkg-config protobuf-compiler python3
+sudo apt-get install -y devscripts debhelper
 
-sudo apt-get update && sudo apt-get upgrade -y
-```
-### Cloning KORE source
 
-```bash
-git clone https://github.com/kore-core/kore.git --branch v13
 ```
 
-### Building KORE dependencies
+### 2. Building KORE dependencies
 
 ```bash
-cd kore/depends
+cd depends
 make
 ```
 
-### Building KORE source
+### 3. Building KORE source
 
 ```bash
 cd ..
 ./autogen.sh
-./configure --with-gui=qt5 --prefix=$(pwd)/depends/x86_64-pc-linux-gnu
+./configure --with-gui=qt5 --prefix=`pwd`/depends/x86_64-pc-linux-gnu --disable-tests  --enable-tor-browser
 
 make
 ```
 
-### Testnet Onion Address
-
+### 4. Generating the installer (.deb)
+#### First, Download Go
 ```bash
-Here are some testnet onion address.
-you can use the console from kore-qt and give the command to add
-addnode gyafu5wgnnfa3btx.onion onetry
-addnode dzux3xi23ndptlz7.onion onetry
-addnode ox2yoevdvlhweahq.onion onetry
-addnode vbbb5gz3uzhuup7z.onion onetry
-addnode mqeajzelltrgxkv6.onion onetry
+From a web browser open and save the following link: 
+  https://golang.org/doc/install?download=go1.12.7.linux-amd64.tar.gz
 ```
 
-### To untar package
+#### Second, Install Go
 ```bash
-tar -zxvf  linux-kore-testnet.tar.gz
+cd ~/Downloads
+sudo tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz
 ```
+
+#### Third, make Go available 
+```bash
+in a terminal make go available, with the following command:
+export PATH=$PATH:/usr/local/go/bin
+```
+
+#### Fourth, generate the (.deb)
+```bash
+from the kore root directory, give the command:
+make deploy
+```
+
+### 5. Installing kore (.deb)
+```bash
+  The installer is generated in the share folder, so in order to install it, give the following command: 
+  cd <kore-dir>/share
+  sudo apt install ./kore_<version>_amd64.deb
+  * <kore-dir> is the directory where you download the kore git repository
+  * <version> is this source code version
+  ** if you get problems with old version, you can remove with the command:
+    sudo apt-get remove kore --purge -y
+```
+
